@@ -1,0 +1,33 @@
+# Mothership PR reviewer — config for this repo.
+#
+# DEFAULT (below): the reviewer runs on EVERY pull request when it is opened
+# (or reopened) into main/master — once per PR, never on each new commit.
+# It is meant to run everywhere. A repo that wants different behavior just
+# edits the fields below; the comments are the guide.
+#
+# ── Fields you can customize ───────────────────────────────────────────────
+# trigger:  when the reviewer fires.
+#   pr-open   → once when a PR is opened/reopened   (default; NOT per commit)
+#   auto      → on every push (opened + synchronize)   [noisy / wasteful]
+#   mention   → only when someone comments `@mothership-reviewer run`
+#   label     → only when the review label is added
+#   batch     → only the scheduled batch reviewer (no GitHub-event trigger)
+#   disabled  → turn the reviewer off for this repo
+#
+# review_mode:  standard | security | both
+#
+# branches:  PR base branches to review (glob patterns). Default [main, master].
+#
+# security_source_branches:  restrict reviews to pre-prod -> prod PRs only.
+#   Leave commented to review every PR into main/master. Set it to this repo's
+#   pre-prod branch(es) and the reviewer fires ONLY when the PR head matches.
+#   e.g. beta -> main:   security_source_branches: [beta]
+#
+# skip_drafts:  true (default) skips draft PRs.
+# min_diff_lines:  skip PRs smaller than N changed lines (default 0 = review all).
+# ───────────────────────────────────────────────────────────────────────────
+
+trigger: pr-open
+review_mode: security
+branches: [main, master]
+# security_source_branches: [beta]   # uncomment for pre-prod -> prod PRs only
