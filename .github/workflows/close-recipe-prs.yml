@@ -1,0 +1,53 @@
+# Recipes here are a published copy of atlan.com/mcp-cookbook — they're written and
+# tested there, then refreshed into this repo. A PR editing them can't reach the
+# website, so it gets a polite close explaining why.
+#
+# GitHub has no setting to turn pull requests off on a public repo. This is the
+# next best thing: the response is instant and costs nobody any review time.
+#
+# SECURITY: pull_request_target is required because a fork PR's default token is
+# read-only and can't comment or close. It runs in the context of the BASE repo, so
+# it must never check out or execute the PR's code — and it doesn't. There is no
+# actions/checkout step here, deliberately. Do not add one.
+name: Close recipe PRs
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close if it touches generated content
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Ask the API which files the PR touches. No code from the PR is fetched or run.
+          files=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[].filename')
+
+          if ! echo "$files" | grep -qE '^(recipes/|recipes\.json$)'; then
+            echo "Touches no generated content — leaving it open for a human."
+            exit 0
+          fi
+
+          gh pr comment "$PR" --repo "$REPO" --body "$(cat <<'MSG'
+          Thanks for taking the time to open this.
+
+          The recipes in this repo are a published copy of
+          [atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/). They're written and tested
+          against a live Atlan tenant there, then refreshed into this repo — so a change made
+          here would be replaced on the next refresh and would never reach the website or the
+          people reading it.
+
+          That's why this is closed automatically, and not a judgement on the change itself.
+          MSG
+          )"
+
+          gh pr close "$PR" --repo "$REPO"
