@@ -9,19 +9,132 @@
 
 ## Project Overview
 
-<!-- Teams: Add project description, architecture, tech stack, data stores here. -->
+The **Atlan MCP Cookbook** — 33 tested recipes for putting a company's own context to work through
+the [Atlan MCP](https://docs.atlan.com/product/capabilities/atlan-ai/how-tos/remote-mcp-overview),
+from inside whatever AI tool the reader already builds in. Each recipe is a real workflow someone
+runs: the problem it solves, the prompts to type, what to hand it, and what comes back.
+
+This repo is a **read-only published mirror** of [atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/).
+Every recipe is written and tested against a live Atlan tenant on the website, then refreshed into
+here. That provenance is the point: a prompt that has not been through that testing would be
+untested advice sitting next to tested advice, with no way for a reader to tell them apart.
+
+There is no application code, no runtime, no build, no dependencies and no secrets in this repo —
+Markdown, one JSON index, two SVGs, and a single GitHub Actions workflow.
+
+| Path | What it is |
+|---|---|
+| `recipes/` | 33 recipes, one Markdown file each — YAML front matter + numbered steps |
+| `recipes.json` | machine index: facets, summaries, hero prompts, `start_here`, `prerequisite_index` |
+| `.claude/skills/find-a-recipe/` | routing skill — reads the index, picks the recipe for a job and role, hands over the prompt with placeholders intact |
+| `images/` | Atlan brand assets (`atlan-logo-blue.svg`, `atlan-logo-white.svg`) |
+| `.github/workflows/close-recipe-prs.yml` | closes PRs against generated content — the only executable surface here |
+| `CONTRIBUTING.md` | why recipes are not edited in this repo, and how to report a broken one |
+
+**Reading a recipe is not enough to run one.** Every recipe needs the Atlan MCP connected to the
+reader's AI tool, and can only surface context that already exists in their tenant. If an asset is
+undocumented, no prompt will invent its meaning — that absence is usually the finding, not a failure.
 
 ## Project Commands
 
-<!-- Teams: Add build, test, lint, deploy commands here. -->
+There is nothing to build, test, lint or deploy. Commands that matter are validation and use:
+
+```bash
+jq -e . recipes.json >/dev/null              # index parses
+jq -r '.recipes[].slug' recipes.json         # list every recipe slug
+jq -r '.start_here[]' recipes.json           # the 6 day-one recipes
+jq -r '.recipes[] | select(.action=="Make changes") | .slug' recipes.json   # the 14 that write back
+claude                                        # then describe a problem — the skill routes you
+cp -r .claude/skills/find-a-recipe ~/.claude/skills/   # use the skill outside this repo
+```
+
+After any refresh from the website, three checks catch a bad sync:
+
+```bash
+# 1. declared count matches files on disk
+[ "$(jq -r .recipe_count recipes.json)" = "$(ls recipes/*.md | wc -l | tr -d ' ')" ] && echo ok
+
+# 2. every indexed slug has a file
+jq -r '.recipes[].slug' recipes.json | while read s; do [ -f "recipes/$s.md" ] || echo "no file: $s"; done
+
+# 3. every relative link resolves from its own file's directory
+find . -name '*.md' -not -path './.git/*' | while read f; do d=$(dirname "$f"); \
+  grep -oE '\]\([^)#][^)]*\)' "$f" | sed -E 's/^\]\(//; s/\)$//' | grep -vE '^(https?|mailto):' | \
+  while read l; do [ -e "$d/${l%%#*}" ] || echo "BROKEN $f -> $l"; done; done
+```
 
 ## Coding Conventions
 
-<!-- Teams: Add language, style guide, naming conventions, patterns here. -->
+**Generated content is off limits.** Everything under `recipes/` and all of `recipes.json` is
+produced from atlan.com. A change made here is overwritten on the next refresh and never reaches the
+website or its readers. Do not hand-edit either, and do not offer to — route the fix to the website.
+The one exception is repo-level metadata that the generator does not own (for example the `_comment`
+provenance string).
+
+**Handing over a prompt.** Keep `<placeholders>` intact. A prompt still containing `<schema>` is the
+intended state — substitute only what the user has actually told you, and leave the rest for them to
+fill. Never present an improvised prompt as one from the cookbook; if a prompt is your own, say so.
+
+**Routing.** Only route to recipes that exist in `recipes.json`. Never invent a recipe. Offer every
+recipe that fits, and state what it assumes rather than silently withholding it — a recipe someone
+cannot run today still tells them what is worth building toward.
+
+**Links.** Relative only (`./recipes/…`, `images/…`), so they resolve on GitHub and in a local clone
+alike. Recipe-to-recipe links are bare filenames resolved from `recipes/`.
+
+**Front matter** is a fixed set, in this order: `name, slug, number, summary, job, action, personas,
+effort, runs_in, requires, start_here, source_url, related`.
+
+**Voice.** Second person, plain English, no hype, no padding. Lead with the thing the reader wants.
+Recipes are written to be pasted, not admired.
+
+**Workflow.** Changes land as direct commits to `main`; this repo does not take pull requests, and
+any PR touching generated content is closed automatically.
 
 ## Architecture Notes
 
-<!-- Teams: Add design decisions, service boundaries, data flow, auth patterns here. -->
+Content flows one way:
+
+```
+atlan.com/mcp-cookbook  ──sync──▶  recipes/ + recipes.json  ──read──▶  find-a-recipe skill  ──▶  user
+   (source of truth)                  (this repo, generated)              (routing only)
+```
+
+There is deliberately no write path back. This repo is a distribution copy — that is what makes the
+"do not edit here" rule structural rather than a matter of etiquette.
+
+**The index is the interface.** `recipes.json` carries `source`, `mcp_setup_url`, `recipe_count`,
+`facets`, `start_here`, `prerequisite_index`, and a `recipes[]` array whose objects hold
+`name, slug, number, summary, job, action, personas, effort, runs_in, requires, start_here,
+step_count, hero_prompt, path, url, related`. Anything building on the cookbook should parse that
+file rather than scraping the Markdown.
+
+**Facets are the routing keys:**
+
+| Facet | Values |
+|---|---|
+| `job` | Find & understand data (13) · Govern & keep trusted (7) · Make data understandable (6) · Change & fix data safely (4) · Retire & migrate (3) |
+| `action` | Look up (19, read-only) · Make changes (14, writes back to Atlan) |
+| `persona` | Data Engineer · Data/BI Analyst · AI Builder · Data Governance Lead · Data/Business User |
+| `effort` | Quick (14) · Moderate (18) · Involved (1) |
+
+`action` is the one worth checking before running anything: 14 recipes write back to Atlan.
+Personas are a hint, not a gate — most recipes serve several.
+
+**Readiness is modelled explicitly.** 27 of the 33 recipes declare a `requires`, keyed to
+`prerequisite_index`: `glossary`, `lineage`, `owners`, `tags`, `documentation`, `domains`,
+`data_quality`. Running a recipe in a tenant that has not built the thing it leans on returns a thin
+answer, and a reader could reasonably conclude the whole cookbook does not work — hence `start_here`,
+the 6 read-only recipes that assume nothing and work on day one in any tenant.
+
+**Security posture.** No secrets, no credentials, no customer data, no code execution paths. The only
+executable surface is `.github/workflows/close-recipe-prs.yml`, and it carries one hard invariant:
+it triggers on `pull_request_target` — required, because a fork PR's default token is read-only and
+cannot comment or close — which means it runs with base-repo privileges and access to secrets.
+It therefore **must never gain an `actions/checkout` step**, and never fetches or executes anything
+from the PR; it only asks the API which filenames changed. Permissions are scoped to
+`contents: read` / `pull-requests: write`. If you touch that file, keep both the invariant and the
+comment that explains it.
 
 ---
 

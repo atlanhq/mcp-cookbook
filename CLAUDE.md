@@ -8,19 +8,68 @@
 
 ## Project Overview
 
-<!-- Teams: Add project description, architecture, tech stack, data stores. -->
+The **Atlan MCP Cookbook** — 33 tested recipes for putting your company's context to work through
+the [Atlan MCP](https://docs.atlan.com/product/capabilities/atlan-ai/how-tos/remote-mcp-overview),
+from inside whatever AI tool you already build in.
+
+This repo is a **read-only published mirror** of [atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/).
+Recipes are written and tested against a live Atlan tenant on the website, then refreshed into here.
+There is no application code, no runtime, no dependencies and no secrets — Markdown plus one JSON index.
+
+| Path | What it is |
+|---|---|
+| `recipes/` | 33 recipes, one Markdown file each — YAML front matter + numbered steps |
+| `recipes.json` | machine index: facets, summaries, hero prompts, `start_here`, `prerequisite_index` |
+| `.claude/skills/find-a-recipe/` | routing skill — reads the index, picks the recipe for a job and role, hands over the prompt |
+| `images/` | Atlan brand assets (light/dark logo) |
+| `.github/workflows/` | the recipe auto-close workflow (the only executable surface in the repo) |
 
 ## Project Commands
 
-<!-- Teams: Add build, test, lint, deploy commands. -->
+Nothing here builds, tests, lints or deploys. The useful commands are validation and use:
+
+```bash
+jq -e . recipes.json >/dev/null              # index parses
+jq -r '.recipes[].slug' recipes.json         # list every recipe slug
+claude                                        # then describe a problem — the skill routes you
+cp -r .claude/skills/find-a-recipe ~/.claude/skills/   # use the skill outside this repo
+```
+
+Consistency checks worth running after a refresh from the website:
+
+```bash
+[ "$(jq -r .recipe_count recipes.json)" = "$(ls recipes/*.md | wc -l | tr -d ' ')" ]  # counts agree
+jq -r '.recipes[].slug' recipes.json | while read s; do [ -f "recipes/$s.md" ] || echo "no file: $s"; done
+```
 
 ## Coding Conventions
 
-<!-- Teams: Add language, style guide, naming conventions, error handling patterns. -->
+- **Never hand-edit `recipes/` or `recipes.json`.** Both are generated from the website and are
+  overwritten on the next refresh. Real fixes are made on atlan.com.
+- **Keep `<placeholders>` intact** when handing a prompt to someone. A prompt still containing
+  `<schema>` is the intended state — substitute only what the user has actually told you.
+- **Relative links only** (`./recipes/…`, `images/…`) so they resolve both on GitHub and in a clone.
+- Recipe front matter is a fixed set: `name, slug, number, summary, job, action, personas, effort,
+  runs_in, requires, start_here, source_url, related`.
+- Prose voice: second person, plain English, no hype. Recipes are written to be pasted, not admired.
+- Changes land as **direct commits to `main`**. PRs touching generated content are closed automatically.
 
 ## Architecture Notes
 
-<!-- Teams: Add design decisions, service boundaries, data flow, auth patterns. -->
+Content flows one way — **atlan.com → sync → this repo**. The website is the source of truth and this
+repo is a distribution copy, so there is deliberately no write path back.
+
+The facets in `recipes.json` are the routing keys the skill uses: `job` (5 values), `action`
+(Look up 19 / Make changes 14), `persona` (5), `effort` (Quick 14 / Moderate 18 / Involved 1).
+`requires` — declared by 27 of the 33 recipes — plus `prerequisite_index`
+(`glossary, lineage, owners, tags, documentation, domains, data_quality`) tell a reader what must
+already exist in their tenant; `start_here` lists the 6 recipes that assume nothing and work on day one.
+
+The only executable surface is `.github/workflows/close-recipe-prs.yml`. It runs on
+`pull_request_target` — required, because a fork PR's default token is read-only and cannot comment
+or close — and therefore **must never gain an `actions/checkout` step**: it reads changed filenames
+from the API and never fetches or executes PR code. Permissions are scoped to `contents: read` /
+`pull-requests: write`.
 
 ---
 
