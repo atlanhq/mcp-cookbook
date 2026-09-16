@@ -1,0 +1,1017 @@
+{
+  "_comment": "Generated from atlan.com/mcp-cookbook. Do not edit by hand. atlan.com is the source of truth for every recipe.",
+  "source": "https://atlan.com/mcp-cookbook/",
+  "mcp_setup_url": "https://docs.atlan.com/product/capabilities/atlan-ai/how-tos/remote-mcp-overview",
+  "recipe_count": 33,
+  "facets": {
+    "job": [
+      "Change & fix data safely",
+      "Find & understand data",
+      "Govern & keep trusted",
+      "Make data understandable",
+      "Retire & migrate"
+    ],
+    "action": [
+      "Look up",
+      "Make changes"
+    ],
+    "persona": [
+      "AI Builder",
+      "Data Engineer",
+      "Data Governance Lead",
+      "Data/BI Analyst",
+      "Data/Business User"
+    ],
+    "effort": [
+      "Involved",
+      "Moderate",
+      "Quick"
+    ]
+  },
+  "start_here": [
+    "reuse-before-you-rebuild",
+    "get-build-ready-for-a-new-dashboard",
+    "get-the-answer-not-just-the-table",
+    "profile-a-field-before-you-build-on-it",
+    "check-value-against-master-list",
+    "compare-two-sources-before-a-migration-decision"
+  ],
+  "prerequisite_index": {
+    "data_quality": [
+      "find-the-right-owner-to-contact",
+      "find-the-trustworthy-replacement-source",
+      "triage-a-data-quality-failure-with-full-context"
+    ],
+    "documentation": [
+      "document-sql-with-business-context",
+      "enrich-assets-with-your-context",
+      "explore-schema-before-writing-sql",
+      "gamify-your-context",
+      "ground-code-in-real-schema",
+      "keep-asset-metadata-fresh",
+      "propagate-context-through-lineage",
+      "route-data-requests-to-right-assets",
+      "score-assets-for-ai-readiness",
+      "sync-metadata-across-environments",
+      "understand-how-a-metric-is-calculated"
+    ],
+    "domains": [
+      "find-the-trustworthy-replacement-source",
+      "gamify-your-context",
+      "keep-asset-metadata-fresh",
+      "navigate-data-products-by-domain"
+    ],
+    "glossary": [
+      "decode-internal-jargon-against-the-glossary",
+      "document-sql-with-business-context",
+      "give-your-dashboards-context",
+      "grow-your-business-glossary",
+      "reconcile-terminology-across-systems"
+    ],
+    "lineage": [
+      "build-a-new-table-or-view-on-trusted-sources",
+      "propagate-context-through-lineage",
+      "safely-deprecate-unused-assets",
+      "see-what-a-sql-change-will-break-before-you-merge",
+      "trace-a-broken-dashboard-to-its-root-cause",
+      "triage-a-data-quality-failure-with-full-context",
+      "triage-assets-for-migration",
+      "warn-downstream-owners-before-a-change-lands"
+    ],
+    "owners": [
+      "enrich-assets-with-your-context",
+      "find-the-right-owner-to-contact",
+      "find-the-trustworthy-replacement-source",
+      "give-your-dashboards-context",
+      "keep-asset-metadata-fresh",
+      "safely-deprecate-unused-assets",
+      "score-assets-for-ai-readiness",
+      "see-what-a-sql-change-will-break-before-you-merge",
+      "talk-to-your-data",
+      "trace-a-broken-dashboard-to-its-root-cause",
+      "triage-a-data-quality-failure-with-full-context",
+      "triage-assets-for-migration",
+      "warn-downstream-owners-before-a-change-lands"
+    ],
+    "tags": [
+      "enrich-assets-with-your-context",
+      "gamify-your-context",
+      "propagate-context-through-lineage",
+      "propagate-pii-tags-to-parent-assets",
+      "sync-metadata-across-environments"
+    ]
+  },
+  "recipes": [
+    {
+      "slug": "route-data-requests-to-right-assets",
+      "name": "Route data requests to right assets",
+      "number": 1,
+      "summary": "Surface certified, well-documented assets in response to a business request.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "Data Governance Lead"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation"
+      ],
+      "start_here": false,
+      "hero_prompt": "A business stakeholder needs data to build a monthly churn analysis. Find the most relevant certified tables or dashboards in Atlan, show who owns them, and explain what each one contains.",
+      "step_count": 3,
+      "path": "recipes/route-data-requests-to-right-assets.md",
+      "url": "https://atlan.com/mcp-cookbook/route-data-requests-to-right-assets/",
+      "related": [
+        "talk-to-your-data",
+        "gamify-your-context",
+        "give-your-dashboards-context"
+      ]
+    },
+    {
+      "slug": "understand-how-a-metric-is-calculated",
+      "name": "Understand how a metric is calculated",
+      "number": 2,
+      "summary": "Get the governed definition of a metric — and where it's documented — without asking a data engineer.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "AI Builder"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation"
+      ],
+      "start_here": false,
+      "hero_prompt": "How is MRR calculated here, and where is that documented?",
+      "step_count": 3,
+      "path": "recipes/understand-how-a-metric-is-calculated.md",
+      "url": "https://atlan.com/mcp-cookbook/understand-how-a-metric-is-calculated/",
+      "related": [
+        "reuse-before-you-rebuild",
+        "get-build-ready-for-a-new-dashboard",
+        "see-what-a-sql-change-will-break-before-you-merge"
+      ]
+    },
+    {
+      "slug": "reuse-before-you-rebuild",
+      "name": "Reuse before you rebuild",
+      "number": 3,
+      "summary": "Before you write SQL to derive a metric, check whether it already exists — and reuse the governed one.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Does MRR already exist somewhere I can reuse before I build it?",
+      "step_count": 3,
+      "path": "recipes/reuse-before-you-rebuild.md",
+      "url": "https://atlan.com/mcp-cookbook/reuse-before-you-rebuild/",
+      "related": [
+        "understand-how-a-metric-is-calculated",
+        "get-build-ready-for-a-new-dashboard",
+        "trace-a-broken-dashboard-to-its-root-cause"
+      ]
+    },
+    {
+      "slug": "get-build-ready-for-a-new-dashboard",
+      "name": "Get build-ready for a new dashboard",
+      "number": 4,
+      "summary": "Before you build a dashboard: the trusted source, the confirmed definition, and how the data is really used — as the build recipe.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/BI Analyst",
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Get me build-ready for the product-sales dashboard — the certified source to build on, the Revenue definition, and how people actually query that table.",
+      "step_count": 3,
+      "path": "recipes/get-build-ready-for-a-new-dashboard.md",
+      "url": "https://atlan.com/mcp-cookbook/get-build-ready-for-a-new-dashboard/",
+      "related": [
+        "understand-how-a-metric-is-calculated",
+        "reuse-before-you-rebuild",
+        "trace-a-broken-dashboard-to-its-root-cause"
+      ]
+    },
+    {
+      "slug": "build-a-new-table-or-view-on-trusted-sources",
+      "name": "Build a new table or view on trusted sources",
+      "number": 5,
+      "summary": "Before you write the DDL, use Atlan to pick the right sources, confirm the grain and definitions, and avoid rebuilding something that already exists.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage"
+      ],
+      "start_here": false,
+      "hero_prompt": "I'm about to build a customer_360 view. Which certified tables should I build on, what are the governed definitions of the key fields, and does an equivalent view already exist?",
+      "step_count": 3,
+      "path": "recipes/build-a-new-table-or-view-on-trusted-sources.md",
+      "url": "https://atlan.com/mcp-cookbook/build-a-new-table-or-view-on-trusted-sources/",
+      "related": [
+        "reuse-before-you-rebuild",
+        "get-build-ready-for-a-new-dashboard",
+        "see-what-a-sql-change-will-break-before-you-merge"
+      ]
+    },
+    {
+      "slug": "see-what-a-sql-change-will-break-before-you-merge",
+      "name": "See what a SQL change will break before you merge",
+      "number": 6,
+      "summary": "Find every downstream consumer of a changed column or table before merging.",
+      "job": "Change & fix data safely",
+      "action": "Look up",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "I'm about to rename the user_id column to customer_id in the dim_users table. Trace the downstream consumers of dim_users — start with the direct ones and expand into the branches that matter — so I can assess the impact before merging.",
+      "step_count": 3,
+      "path": "recipes/see-what-a-sql-change-will-break-before-you-merge.md",
+      "url": "https://atlan.com/mcp-cookbook/see-what-a-sql-change-will-break-before-you-merge/",
+      "related": [
+        "warn-downstream-owners-before-a-change-lands",
+        "trace-a-broken-dashboard-to-its-root-cause",
+        "safely-deprecate-unused-assets"
+      ]
+    },
+    {
+      "slug": "warn-downstream-owners-before-a-change-lands",
+      "name": "Warn downstream owners before a change lands",
+      "number": 7,
+      "summary": "Find every downstream consumer of a changing asset and warn their owners first.",
+      "job": "Change & fix data safely",
+      "action": "Make changes",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "The customer_id column in dim_customers is being renamed to cust_id next week. Find all downstream tables and dashboards that use it and add a warning announcement explaining the change and timeline.",
+      "step_count": 4,
+      "path": "recipes/warn-downstream-owners-before-a-change-lands.md",
+      "url": "https://atlan.com/mcp-cookbook/warn-downstream-owners-before-a-change-lands/",
+      "related": [
+        "see-what-a-sql-change-will-break-before-you-merge",
+        "safely-deprecate-unused-assets",
+        "triage-a-data-quality-failure-with-full-context"
+      ]
+    },
+    {
+      "slug": "triage-a-data-quality-failure-with-full-context",
+      "name": "Triage a data-quality failure with full context",
+      "number": 8,
+      "summary": "Enrich quality failures with lineage, ownership, and downstream impact for faster triage.",
+      "job": "Change & fix data safely",
+      "action": "Make changes",
+      "personas": [
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "data_quality",
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "The orders_fact table failed a null check on order_id this morning. Find its owners and downstream dashboards, then add a warning announcement with the failure details so the team can triage.",
+      "step_count": 3,
+      "path": "recipes/triage-a-data-quality-failure-with-full-context.md",
+      "url": "https://atlan.com/mcp-cookbook/triage-a-data-quality-failure-with-full-context/",
+      "related": [
+        "warn-downstream-owners-before-a-change-lands",
+        "trace-a-broken-dashboard-to-its-root-cause",
+        "keep-asset-metadata-fresh"
+      ]
+    },
+    {
+      "slug": "trace-a-broken-dashboard-to-its-root-cause",
+      "name": "Trace a broken dashboard to its root cause",
+      "number": 9,
+      "summary": "Trace lineage upstream from a broken dashboard to find the source of wrong numbers.",
+      "job": "Change & fix data safely",
+      "action": "Look up",
+      "personas": [
+        "Data/BI Analyst",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "The Weekly Sales Dashboard is showing revenue figures 30% lower than expected since Monday. Trace its upstream lineage hop by hop and show me the source tables and transformations in the chain along with their owners, any recent announcements, and the DQ rule failures on each.",
+      "step_count": 3,
+      "path": "recipes/trace-a-broken-dashboard-to-its-root-cause.md",
+      "url": "https://atlan.com/mcp-cookbook/trace-a-broken-dashboard-to-its-root-cause/",
+      "related": [
+        "triage-a-data-quality-failure-with-full-context",
+        "see-what-a-sql-change-will-break-before-you-merge",
+        "talk-to-your-data"
+      ]
+    },
+    {
+      "slug": "safely-deprecate-unused-assets",
+      "name": "Safely deprecate unused assets",
+      "number": 10,
+      "summary": "Verify no active consumers exist, notify owners, then mark assets as deprecated.",
+      "job": "Retire & migrate",
+      "action": "Make changes",
+      "personas": [
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "I want to deprecate the legacy_orders_v1 table. First check whether anything still depends on it: walk its downstream lineage a hop at a time and give me each consumer with its owner. If usage data is available for the table, also tell me when it was last queried. If it's safe, add a deprecation notice saying it will be removed in 30 days, mark it deprecated, and record the reason — otherwise list the owners to warn first.",
+      "step_count": 3,
+      "path": "recipes/safely-deprecate-unused-assets.md",
+      "url": "https://atlan.com/mcp-cookbook/safely-deprecate-unused-assets/",
+      "related": [
+        "triage-assets-for-migration",
+        "warn-downstream-owners-before-a-change-lands",
+        "see-what-a-sql-change-will-break-before-you-merge"
+      ]
+    },
+    {
+      "slug": "triage-assets-for-migration",
+      "name": "Triage assets for migration",
+      "number": 11,
+      "summary": "Classify every asset by consumer count, ownership, and certification before migrating.",
+      "job": "Retire & migrate",
+      "action": "Make changes",
+      "personas": [
+        "Data Engineer"
+      ],
+      "effort": "Involved",
+      "runs_in": "any AI tool",
+      "requires": [
+        "lineage",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "We're migrating all tables in the legacy_dwh schema to the new warehouse. For each table, show me how many downstream consumers it has, who owns it, and whether it's certified. Then classify each one as high, medium, or low migration priority and write that to the Migration Priority custom metadata field.",
+      "step_count": 3,
+      "path": "recipes/triage-assets-for-migration.md",
+      "url": "https://atlan.com/mcp-cookbook/triage-assets-for-migration/",
+      "related": [
+        "safely-deprecate-unused-assets",
+        "sync-metadata-across-environments",
+        "score-assets-for-ai-readiness"
+      ]
+    },
+    {
+      "slug": "enrich-assets-with-your-context",
+      "name": "Enrich assets with your context",
+      "number": 12,
+      "summary": "Bring context that lives outside Atlan, like a spreadsheet or a Confluence page, onto your assets as owners, tags, and additional metadata.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "Data/BI Analyst",
+        "Data Engineer",
+        "Data Governance Lead"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "owners",
+        "tags"
+      ],
+      "start_here": false,
+      "hero_prompt": "I have a spreadsheet of table owners and a Confluence page describing the orders tables. Set the owners and tags from the spreadsheet, and enrich each table's description with the details from Confluence.",
+      "step_count": 3,
+      "path": "recipes/enrich-assets-with-your-context.md",
+      "url": "https://atlan.com/mcp-cookbook/enrich-assets-with-your-context/",
+      "related": [
+        "give-your-dashboards-context",
+        "grow-your-business-glossary",
+        "keep-asset-metadata-fresh"
+      ]
+    },
+    {
+      "slug": "give-your-dashboards-context",
+      "name": "Give your dashboards context",
+      "number": 13,
+      "summary": "Link BI dashboards to business terms and owners so they show up in search.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "Data Governance Lead",
+        "Data/BI Analyst"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "glossary",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "Find the Revenue Overview and Customer Churn dashboards in Tableau. Add the Finance team as owner and link them to the Revenue and Churn Rate glossary terms.",
+      "step_count": 3,
+      "path": "recipes/give-your-dashboards-context.md",
+      "url": "https://atlan.com/mcp-cookbook/give-your-dashboards-context/",
+      "related": [
+        "enrich-assets-with-your-context",
+        "grow-your-business-glossary",
+        "route-data-requests-to-right-assets"
+      ]
+    },
+    {
+      "slug": "propagate-context-through-lineage",
+      "name": "Propagate context through lineage",
+      "number": 14,
+      "summary": "Push descriptions and tags from a source table to every downstream asset in one pass.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "Data/BI Analyst",
+        "Data Engineer",
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "lineage",
+        "tags"
+      ],
+      "start_here": false,
+      "hero_prompt": "Take the description and PII tags from the customers_raw table and propagate them outward through its downstream lineage, expanding hop by hop.",
+      "step_count": 3,
+      "path": "recipes/propagate-context-through-lineage.md",
+      "url": "https://atlan.com/mcp-cookbook/propagate-context-through-lineage/",
+      "related": [
+        "propagate-pii-tags-to-parent-assets",
+        "enrich-assets-with-your-context",
+        "warn-downstream-owners-before-a-change-lands"
+      ]
+    },
+    {
+      "slug": "grow-your-business-glossary",
+      "name": "Grow your business glossary",
+      "number": 15,
+      "summary": "Bootstrap glossary terms from how your assets already use business concepts.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "Data Governance Lead",
+        "Data/BI Analyst"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "glossary"
+      ],
+      "start_here": false,
+      "hero_prompt": "Find all assets that reference customer lifetime value or LTV. Create a glossary term called Customer Lifetime Value with a definition based on how these assets use it, then link them to the term.",
+      "step_count": 3,
+      "path": "recipes/grow-your-business-glossary.md",
+      "url": "https://atlan.com/mcp-cookbook/grow-your-business-glossary/",
+      "related": [
+        "document-sql-with-business-context",
+        "enrich-assets-with-your-context",
+        "give-your-dashboards-context"
+      ]
+    },
+    {
+      "slug": "document-sql-with-business-context",
+      "name": "Document SQL with business context",
+      "number": 16,
+      "summary": "Generate business-readable descriptions for SQL models from the context already in Atlan.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "glossary"
+      ],
+      "start_here": false,
+      "hero_prompt": "For the monthly_revenue_summary model in dbt, look up the Atlan descriptions and glossary terms for its source tables and write a business-friendly description explaining what it calculates and who it's for.",
+      "step_count": 3,
+      "path": "recipes/document-sql-with-business-context.md",
+      "url": "https://atlan.com/mcp-cookbook/document-sql-with-business-context/",
+      "related": [
+        "grow-your-business-glossary",
+        "enrich-assets-with-your-context",
+        "trace-a-broken-dashboard-to-its-root-cause"
+      ]
+    },
+    {
+      "slug": "talk-to-your-data",
+      "name": "Talk to your data",
+      "number": 17,
+      "summary": "Pair Atlan with your warehouse or SQL-tool MCP: Atlan finds the right certified table and hands over the governed definition, so you query the source correctly — not just quickly.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "AI Builder"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "I need revenue by customer for the last two years. Find the certified table with the order and revenue data, pull the governed definition and calculation of revenue from Atlan, then query the source using that definition so the number matches how we define it.",
+      "step_count": 3,
+      "path": "recipes/talk-to-your-data.md",
+      "url": "https://atlan.com/mcp-cookbook/talk-to-your-data/",
+      "related": [
+        "route-data-requests-to-right-assets",
+        "gamify-your-context",
+        "trace-a-broken-dashboard-to-its-root-cause"
+      ]
+    },
+    {
+      "slug": "keep-asset-metadata-fresh",
+      "name": "Keep asset metadata fresh",
+      "number": 18,
+      "summary": "Catch stale certifications, missing owners, and outdated descriptions early.",
+      "job": "Govern & keep trusted",
+      "action": "Make changes",
+      "personas": [
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "domains",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "Find all tables in the analytics schema certified more than 6 months ago. Review their current descriptions and owners, and flag any that need recertification with a warning announcement.",
+      "step_count": 3,
+      "path": "recipes/keep-asset-metadata-fresh.md",
+      "url": "https://atlan.com/mcp-cookbook/keep-asset-metadata-fresh/",
+      "related": [
+        "score-assets-for-ai-readiness",
+        "gamify-your-context",
+        "sync-metadata-across-environments"
+      ]
+    },
+    {
+      "slug": "sync-metadata-across-environments",
+      "name": "Sync metadata across environments",
+      "number": 19,
+      "summary": "Keep descriptions, tags, and custom metadata aligned across dev, staging, and prod.",
+      "job": "Govern & keep trusted",
+      "action": "Make changes",
+      "personas": [
+        "Data Governance Lead",
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "tags"
+      ],
+      "start_here": false,
+      "hero_prompt": "Find the orders_fact table in both production and staging. Compare their descriptions, tags, and custom metadata, then sync the production metadata to staging where staging is missing fields.",
+      "step_count": 3,
+      "path": "recipes/sync-metadata-across-environments.md",
+      "url": "https://atlan.com/mcp-cookbook/sync-metadata-across-environments/",
+      "related": [
+        "keep-asset-metadata-fresh",
+        "enrich-assets-with-your-context",
+        "triage-assets-for-migration"
+      ]
+    },
+    {
+      "slug": "propagate-pii-tags-to-parent-assets",
+      "name": "Propagate PII tags to parent assets",
+      "number": 20,
+      "summary": "Roll column-level PII classification up to parent tables and schemas so policies fire.",
+      "job": "Govern & keep trusted",
+      "action": "Make changes",
+      "personas": [
+        "Data Engineer",
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "tags"
+      ],
+      "start_here": false,
+      "hero_prompt": "Find all columns tagged as PII in the customers database. For each one, apply the PII tag to its parent table and schema if those aren't already tagged.",
+      "step_count": 3,
+      "path": "recipes/propagate-pii-tags-to-parent-assets.md",
+      "url": "https://atlan.com/mcp-cookbook/propagate-pii-tags-to-parent-assets/",
+      "related": [
+        "propagate-context-through-lineage",
+        "score-assets-for-ai-readiness",
+        "keep-asset-metadata-fresh"
+      ]
+    },
+    {
+      "slug": "score-assets-for-ai-readiness",
+      "name": "Score assets for AI readiness",
+      "number": 21,
+      "summary": "Rate assets on documentation, ownership, and quality before they enter AI pipelines.",
+      "job": "Govern & keep trusted",
+      "action": "Make changes",
+      "personas": [
+        "AI Builder",
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "For all tables in the ml_features schema, check if they have descriptions, owners, certifications, and PII classification. Score each one for AI readiness and write the score to the AI Readiness custom metadata field.",
+      "step_count": 3,
+      "path": "recipes/score-assets-for-ai-readiness.md",
+      "url": "https://atlan.com/mcp-cookbook/score-assets-for-ai-readiness/",
+      "related": [
+        "keep-asset-metadata-fresh",
+        "gamify-your-context",
+        "propagate-pii-tags-to-parent-assets"
+      ]
+    },
+    {
+      "slug": "gamify-your-context",
+      "name": "Gamify your context",
+      "number": 22,
+      "summary": "Generate per-domain enrichment scorecards to motivate metadata contributions.",
+      "job": "Govern & keep trusted",
+      "action": "Look up",
+      "personas": [
+        "Data Governance Lead"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation",
+        "domains",
+        "tags"
+      ],
+      "start_here": false,
+      "hero_prompt": "Generate a metadata completeness report by data domain. For each domain, show how many assets have descriptions, owners, and certifications versus those that don't. Rank domains from most complete to least complete.",
+      "step_count": 3,
+      "path": "recipes/gamify-your-context.md",
+      "url": "https://atlan.com/mcp-cookbook/gamify-your-context/",
+      "related": [
+        "keep-asset-metadata-fresh",
+        "enrich-assets-with-your-context",
+        "score-assets-for-ai-readiness"
+      ]
+    },
+    {
+      "slug": "explore-schema-before-writing-sql",
+      "name": "Write SQL that runs on the first try",
+      "number": 23,
+      "summary": "Pull real column names and types from the source schema first, so the SQL you write runs on the first try instead of guessing at a field name that doesn't exist.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/BI Analyst",
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation"
+      ],
+      "start_here": false,
+      "hero_prompt": "Before I write this query, show me the tables and columns in the `reporting` schema that relate to customers and their orders, with their real names and types.",
+      "step_count": 3,
+      "path": "recipes/explore-schema-before-writing-sql.md",
+      "url": "https://atlan.com/mcp-cookbook/explore-schema-before-writing-sql/",
+      "related": [
+        "see-what-a-sql-change-will-break-before-you-merge",
+        "ground-code-in-real-schema",
+        "check-value-against-master-list"
+      ]
+    },
+    {
+      "slug": "decode-internal-jargon-against-the-glossary",
+      "name": "Decode internal jargon without asking around",
+      "number": 24,
+      "summary": "Check whether an internal acronym or jargon term already has a governed definition before you interrupt five people on Slack to ask.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "AI Builder"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "glossary"
+      ],
+      "start_here": false,
+      "hero_prompt": "What does 'DQ-17' mean? Check if there's already a governed definition for it before I ask anyone.",
+      "step_count": 3,
+      "path": "recipes/decode-internal-jargon-against-the-glossary.md",
+      "url": "https://atlan.com/mcp-cookbook/decode-internal-jargon-against-the-glossary/",
+      "related": [
+        "grow-your-business-glossary",
+        "reconcile-terminology-across-systems",
+        "understand-how-a-metric-is-calculated"
+      ]
+    },
+    {
+      "slug": "navigate-data-products-by-domain",
+      "name": "Know what your domain owns, and whether it's live",
+      "number": 25,
+      "summary": "Ask what data products exist under a business domain and what actually backs one of them, instead of hunting table by table.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "domains"
+      ],
+      "start_here": false,
+      "hero_prompt": "List the data products registered under the Finance domain, then show me exactly which tables and columns back the Opportunity Pipeline product, and whether that product is actively fed by anything upstream.",
+      "step_count": 4,
+      "path": "recipes/navigate-data-products-by-domain.md",
+      "url": "https://atlan.com/mcp-cookbook/navigate-data-products-by-domain/",
+      "related": [
+        "gamify-your-context",
+        "route-data-requests-to-right-assets",
+        "score-assets-for-ai-readiness"
+      ]
+    },
+    {
+      "slug": "get-the-answer-not-just-the-table",
+      "name": "Get the answer, not just the table",
+      "number": 26,
+      "summary": "Every other lookup hands you where to find the data. This one starts from the governed definition of a metric, follows it to the certified asset that carries it, and gives you the answer itself — calculated the way your business defines it, using Atlan alone.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "AI Builder"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Get me the governed definition and calculation of revenue, find the certified asset that carries it, and use that to give me the top 3 accounts by revenue.",
+      "step_count": 4,
+      "path": "recipes/get-the-answer-not-just-the-table.md",
+      "url": "https://atlan.com/mcp-cookbook/get-the-answer-not-just-the-table/",
+      "related": [
+        "talk-to-your-data",
+        "explore-schema-before-writing-sql",
+        "understand-how-a-metric-is-calculated"
+      ]
+    },
+    {
+      "slug": "profile-a-field-before-you-build-on-it",
+      "name": "Profile a field's shape before you build on it",
+      "number": 27,
+      "summary": "Get a quick profile of a field, its type, null rate, distinct count, and range, so you know what you're working with before you aggregate or join on it.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/BI Analyst",
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Give me a quick profile of the `amount` field on `<table>`: its data type, null rate, how many distinct values, and its range, before I build on it.",
+      "step_count": 3,
+      "path": "recipes/profile-a-field-before-you-build-on-it.md",
+      "url": "https://atlan.com/mcp-cookbook/profile-a-field-before-you-build-on-it/",
+      "related": [
+        "check-value-against-master-list",
+        "explore-schema-before-writing-sql",
+        "triage-a-data-quality-failure-with-full-context"
+      ]
+    },
+    {
+      "slug": "check-value-against-master-list",
+      "name": "Check the master list before you add a new value",
+      "number": 28,
+      "summary": "Before adding a new value to a field, pull the existing values so a new entry doesn't duplicate one under a different name and fragment the master list.",
+      "job": "Govern & keep trusted",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "Data Governance Lead"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Before I add `Eco-Friendly` to `product_category`, show me the existing distinct values so I can tell if it already exists under another name.",
+      "step_count": 3,
+      "path": "recipes/check-value-against-master-list.md",
+      "url": "https://atlan.com/mcp-cookbook/check-value-against-master-list/",
+      "related": [
+        "profile-a-field-before-you-build-on-it",
+        "reconcile-terminology-across-systems",
+        "grow-your-business-glossary"
+      ]
+    },
+    {
+      "slug": "find-the-trustworthy-replacement-source",
+      "name": "Find the source you can actually trust",
+      "number": 29,
+      "summary": "When the table you've always been pointed to stops reconciling, find the actual certified source instead of guessing at a second bad table.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data/BI Analyst",
+        "AI Builder",
+        "Data Engineer",
+        "Data Governance Lead"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "data_quality",
+        "domains",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "I've been told `dc_metrics_v1` is wrong. Find the actual certified source for distribution center data, show me who owns it and when it was last updated, and confirm it isn't itself just a copy of the bad one.",
+      "step_count": 4,
+      "path": "recipes/find-the-trustworthy-replacement-source.md",
+      "url": "https://atlan.com/mcp-cookbook/find-the-trustworthy-replacement-source/",
+      "related": [
+        "triage-assets-for-migration",
+        "safely-deprecate-unused-assets",
+        "reuse-before-you-rebuild"
+      ]
+    },
+    {
+      "slug": "compare-two-sources-before-a-migration-decision",
+      "name": "See exactly what a migration would leave behind",
+      "number": 30,
+      "summary": "Line up two connections, databases, or schemas and see exactly what matches, what's missing, and what only exists on one side, before you commit to a migration or consolidation plan.",
+      "job": "Retire & migrate",
+      "action": "Look up",
+      "personas": [
+        "Data Engineer"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [],
+      "start_here": true,
+      "hero_prompt": "Compare every table in `LEGACY_SALES` against `CONFORMED_SALES`. Tell me which ones match, which exist only in `LEGACY_SALES`, and which exist only in `CONFORMED_SALES`.",
+      "step_count": 4,
+      "path": "recipes/compare-two-sources-before-a-migration-decision.md",
+      "url": "https://atlan.com/mcp-cookbook/compare-two-sources-before-a-migration-decision/",
+      "related": [
+        "find-the-trustworthy-replacement-source",
+        "triage-assets-for-migration",
+        "safely-deprecate-unused-assets"
+      ]
+    },
+    {
+      "slug": "ground-code-in-real-schema",
+      "name": "Ground AI-written code in your real schema",
+      "number": 31,
+      "summary": "Pull exact column names, types, and certification status for the tables your fix touches, before your coding agent writes a line of SQL.",
+      "job": "Find & understand data",
+      "action": "Look up",
+      "personas": [
+        "AI Builder",
+        "Data Engineer"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "documentation"
+      ],
+      "start_here": false,
+      "hero_prompt": "Before you touch the query, pull the real columns and types on `fct_orders`, tell me which ones are certified, and flag if any glossary term already defines what 'discount' means on this table.",
+      "step_count": 4,
+      "path": "recipes/ground-code-in-real-schema.md",
+      "url": "https://atlan.com/mcp-cookbook/ground-code-in-real-schema/",
+      "related": [
+        "document-sql-with-business-context",
+        "see-what-a-sql-change-will-break-before-you-merge",
+        "explore-schema-before-writing-sql"
+      ]
+    },
+    {
+      "slug": "find-the-right-owner-to-contact",
+      "name": "Reach the real owner, not the wrong person",
+      "number": 32,
+      "summary": "Trace a failing number back to the asset behind it, then find out who owns that dataset, so the problem reaches the team accountable for it instead of a general channel.",
+      "job": "Govern & keep trusted",
+      "action": "Look up",
+      "personas": [
+        "Data/Business User",
+        "Data Engineer",
+        "Data Governance Lead"
+      ],
+      "effort": "Quick",
+      "runs_in": "any AI tool",
+      "requires": [
+        "data_quality",
+        "owners"
+      ],
+      "start_here": false,
+      "hero_prompt": "Revenue numbers aren't reconciling. Find the asset behind the revenue figures, check its data quality status, and tell me who owns it so I can raise this with the right team.",
+      "step_count": 3,
+      "path": "recipes/find-the-right-owner-to-contact.md",
+      "url": "https://atlan.com/mcp-cookbook/find-the-right-owner-to-contact/",
+      "related": [
+        "route-data-requests-to-right-assets",
+        "warn-downstream-owners-before-a-change-lands",
+        "triage-a-data-quality-failure-with-full-context"
+      ]
+    },
+    {
+      "slug": "reconcile-terminology-across-systems",
+      "name": "Give one concept one trusted definition",
+      "number": 33,
+      "summary": "Confirm whether two differently-named fields or terms mean the same thing, then link them under one governed definition so the next person searching either name lands in the same place.",
+      "job": "Make data understandable",
+      "action": "Make changes",
+      "personas": [
+        "Data Governance Lead",
+        "Data/BI Analyst"
+      ],
+      "effort": "Moderate",
+      "runs_in": "any AI tool",
+      "requires": [
+        "glossary"
+      ],
+      "start_here": false,
+      "hero_prompt": "Check whether `cash_ledger` and `payments_settlement` describe the same underlying balance. If they do, link them under one glossary term so anyone searching either name gets the same governed answer.",
+      "step_count": 4,
+      "path": "recipes/reconcile-terminology-across-systems.md",
+      "url": "https://atlan.com/mcp-cookbook/reconcile-terminology-across-systems/",
+      "related": [
+        "grow-your-business-glossary",
+        "decode-internal-jargon-against-the-glossary",
+        "enrich-assets-with-your-context"
+      ]
+    }
+  ]
+}
