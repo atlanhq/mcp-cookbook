@@ -85,9 +85,9 @@ images/                        Atlan brand assets
 ## Contributing
 
 This repo is a published copy of the cookbook, kept in step with
-[atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/). Recipes are written and reviewed there
-first, so **pull requests against `recipes/` or `recipes.json` aren't accepted** — see
-[CONTRIBUTING.md](./CONTRIBUTING.md).
+[atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/). **We aren't taking contributions yet**:
+pull requests and commits from outside the team aren't accepted. A process for submitting your own
+recipes is coming soon. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## More from Atlan
 
