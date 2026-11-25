@@ -45,17 +45,18 @@ jobs:
           gh pr comment "$PR" --repo "$REPO" --body "$(cat <<'MSG'
           Thanks for taking the time to open this.
 
-          This repo isn't taking contributions yet. The recipes here are a published copy of
+          This repo isn't taking contributions yet.
+
+          For background: the recipes here are a published copy of
           [atlan.com/mcp-cookbook](https://atlan.com/mcp-cookbook/). They're written and tested
-          against a live Atlan tenant there, then refreshed into this repo, so a change made
-          here would be replaced on the next refresh and would never reach the website or the
-          people reading it.
+          against a live Atlan tenant there, then refreshed into this repo.
 
           A process for submitting your own recipes is coming soon; details will be posted in
           this repo's CONTRIBUTING.md. If a recipe is wrong, please raise it
           with your Atlan point of contact.
 
-          That's why this is closed automatically, and not a judgement on the change itself.
+          This was closed automatically because the repo isn't taking contributions yet, not
+          as a judgement on the change itself.
           MSG
           )"
 
